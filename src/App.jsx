@@ -1,36 +1,14 @@
 import { useEffect, useReducer } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
+import { reducer, initialState } from "./utils/reducer";
+import Loader from "./components/Loader";
+import Error from "./components/Error";
+import InitialScreen from "./components/InitialScreen";
 
-function reducer(state, action) {
-    switch (action.type) {
-        case "questionDataReceived":
-            return {
-                ...state,
-                questions: action.payload,
-                status: "ready"
-            };
-        case "failedToLoadData":
-            return {
-                ...state,
-                status: "error"
-            };
-        default:
-            throw new Error("unknown error occured!!")
-
-    }
-
-};
-
-const initialState = {
-    questions: [],
-
-    // loading, error, finished, ready, active
-    status: 'loading'
-};
 
 export default function App() {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
         async function fetchQuestions() {
@@ -47,19 +25,18 @@ export default function App() {
 
         fetchQuestions();
 
-    }, []);
-
-    console.log(state);
-
-
+    }, [dispatch]);
 
     return (
         <section className="app">
             <Header />
+
             <Main>
-                <p>1/15</p>
-                <p>Question</p>
+                {status === "loading" && <Loader />}
+                {status === "error" && <Error />}
+                {status === "ready" && <InitialScreen questionNumbers={questions.length} />}
             </Main>
+
         </section>
     );
 };

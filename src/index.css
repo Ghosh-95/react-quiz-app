@@ -37,11 +37,11 @@ body {
 }
 
 .main {
-  width: 50rem;
+  width: 55rem;
 }
 
 .app-header {
-  width: 66rem;
+  width: 60rem;
   margin-bottom: 4rem;
   display: flex;
   align-items: center;
@@ -58,7 +58,7 @@ body {
 }
 
 img {
-  width: 14rem;
+  width: 12rem;
 }
 
 h1 {
