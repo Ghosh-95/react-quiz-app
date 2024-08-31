@@ -5,10 +5,11 @@ import { reducer, initialState } from "./utils/reducer";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
 import InitialScreen from "./components/InitialScreen";
+import Questions from "./components/Questions";
 
 
 export default function App() {
-    const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+    const [{ questions, quizStatus, questionIndex, selectedAnswer }, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
         async function fetchQuestions() {
@@ -32,9 +33,10 @@ export default function App() {
             <Header />
 
             <Main>
-                {status === "loading" && <Loader />}
-                {status === "error" && <Error />}
-                {status === "ready" && <InitialScreen questionNumbers={questions.length} />}
+                {quizStatus === "loading" && <Loader />}
+                {quizStatus === "error" && <Error />}
+                {quizStatus === "ready" && <InitialScreen questionNumbers={questions.length} onDispatch={dispatch} />}
+                {quizStatus === "active" && <Questions currentQuestion={questions[questionIndex]} selectedAnswer={selectedAnswer} onDispatch={dispatch} />}
             </Main>
 
         </section>

@@ -4,13 +4,26 @@ export function reducer(state, action) {
             return {
                 ...state,
                 questions: action.payload,
-                status: "ready"
+                quizStatus: "ready"
             };
         case "failedToLoadData":
             return {
                 ...state,
-                status: "error"
+                quizStatus: "error"
             };
+        case "startQuiz":
+            return {
+                ...state,
+                quizStatus: "active"
+            };
+        case "selectAnswer":
+            const currentQuestion = state.questions.at(state.questionIndex);
+
+            return {
+                ...state,
+                selectedAnswer: action.payload,
+                points: currentQuestion.correctOption === action.payload ? state.points + currentQuestion.points : state.points,
+            }
         default:
             throw new Error("unknown error occured!!")
 
@@ -22,5 +35,9 @@ export const initialState = {
     questions: [],
 
     // loading, error, finished, ready, active
-    status: 'loading'
+    quizStatus: 'loading',
+
+    questionIndex: 0,
+    selectedAnswer: null,
+    points: 0
 };
