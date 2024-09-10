@@ -6,7 +6,7 @@ export default function QuizOption({ questionData, onDispatch, selectedAnswer })
             {questionData.options.map((opt, i) => (
                 <button
                     key={opt}
-                    className={`btn btn-option ${i === selectedAnswer ? "answer" : ""} ${hasAnswered ? i === questionData.correctOption ? "correct" : "wrong" : ""} `}
+                    className={`btn btn-option ${i === selectedAnswer ? "answer" : ""} ${hasAnswered && i === questionData.correctOption ? "correct" : ""} ${i === selectedAnswer && i !== questionData.correctOption && "wrong"} `}
                     onClick={() => onDispatch({ type: "selectAnswer", payload: i })}
                     disabled={hasAnswered}
                 >

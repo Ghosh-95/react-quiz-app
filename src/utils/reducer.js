@@ -23,7 +23,13 @@ export function reducer(state, action) {
                 ...state,
                 selectedAnswer: action.payload,
                 points: currentQuestion.correctOption === action.payload ? state.points + currentQuestion.points : state.points,
-            }
+            };
+        case "nextQuestion":
+            return {
+                ...state,
+                questionIndex: state.questionIndex + 1,
+                selectedAnswer: null,
+            };
         default:
             throw new Error("unknown error occured!!")
 

@@ -6,10 +6,14 @@ import Loader from "./components/Loader";
 import Error from "./components/Error";
 import InitialScreen from "./components/InitialScreen";
 import Questions from "./components/Questions";
+import NextButton from "./components/NextButton";
+import ProgressBar from "./components/ProgressBar";
 
 
 export default function App() {
-    const [{ questions, quizStatus, questionIndex, selectedAnswer }, dispatch] = useReducer(reducer, initialState);
+    const [{ questions, quizStatus, questionIndex, selectedAnswer, points }, dispatch] = useReducer(reducer, initialState);
+
+    const totalPossiblePoints = questions.reduce((acc, cur) => acc + cur.points, 0);
 
     useEffect(() => {
         async function fetchQuestions() {
@@ -36,7 +40,12 @@ export default function App() {
                 {quizStatus === "loading" && <Loader />}
                 {quizStatus === "error" && <Error />}
                 {quizStatus === "ready" && <InitialScreen questionNumbers={questions.length} onDispatch={dispatch} />}
-                {quizStatus === "active" && <Questions currentQuestion={questions[questionIndex]} selectedAnswer={selectedAnswer} onDispatch={dispatch} />}
+                {quizStatus === "active" &&
+                    <>
+                        <ProgressBar totalQuestions={questions.length} questionIndex={questionIndex} totalPoints={totalPossiblePoints} points={points} selectedAnswer={selectedAnswer} />
+                        <Questions currentQuestion={questions[questionIndex]} selectedAnswer={selectedAnswer} onDispatch={dispatch} />
+                        <NextButton onDispatch={dispatch} selectedAnswer={selectedAnswer} />
+                    </>}
             </Main>
 
         </section>

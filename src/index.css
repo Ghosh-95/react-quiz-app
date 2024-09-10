@@ -7,7 +7,8 @@
   --color-light: #f1f3f5;
 
   --color-theme: #169cb4;
-  --color-accent: #ffa94d;
+  --color-correct: #46ce11;
+  --color-accent: #f12517;
 }
 
 
@@ -34,6 +35,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 3rem;
 }
 
 .main {
@@ -41,7 +43,7 @@ body {
 }
 
 .app-header {
-  width: 60rem;
+  width: 55rem;
   margin-bottom: 4rem;
   display: flex;
   align-items: center;
@@ -58,12 +60,12 @@ body {
 }
 
 img {
-  width: 12rem;
+  width: 10rem;
 }
 
 h1 {
   font-family: "Montserrat", sans-serif;
-  font-size: 5.6rem;
+  font-size: 5rem;
 }
 
 h2 {
@@ -158,19 +160,19 @@ progress {
 }
 
 .btn-option.correct {
-  background-color: var(--color-theme);
-  border: 2px solid var(--color-theme);
+  background-color: var(--color-correct);
+  border: 2px solid var(--color-correct);
   color: var(--color-light);
 }
 
 .btn-option.wrong {
   background-color: var(--color-accent);
   border: 2px solid var(--color-accent);
-  color: var(--color-darkest);
+  color: var(--color-light);
 }
 
 .answer {
-  transform: translateX(2rem);
+  transform: translateX(3rem);
 }
 
 .result {
