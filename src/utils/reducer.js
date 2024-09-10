@@ -30,6 +30,13 @@ export function reducer(state, action) {
                 questionIndex: state.questionIndex + 1,
                 selectedAnswer: null,
             };
+        case "finishQuiz":
+            return {
+                ...state,
+                selectedAnswer: null,
+                quizStatus: "finished",
+                highscore: state.points > state.highscore ? state.points : state.highscore,
+            }
         default:
             throw new Error("unknown error occured!!")
 
@@ -45,5 +52,6 @@ export const initialState = {
 
     questionIndex: 0,
     selectedAnswer: null,
-    points: 0
+    points: 0,
+    highscore: 0,
 };
