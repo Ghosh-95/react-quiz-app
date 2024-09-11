@@ -37,6 +37,15 @@ export function reducer(state, action) {
                 quizStatus: "finished",
                 highscore: state.points > state.highscore ? state.points : state.highscore,
             }
+        case "restartQuiz":
+            return {
+                ...state,
+                selectedAnswer: null,
+                quizStatus: "ready",
+                questionIndex: 0,
+                points: 0,
+                highscore: 0,
+            }
         default:
             throw new Error("unknown error occured!!")
 

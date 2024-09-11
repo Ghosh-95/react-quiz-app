@@ -49,7 +49,7 @@ export default function App() {
                             questionIndex={questionIndex} numOfQuestions={questions.length} />
                     </>}
 
-                {quizStatus === "finished" && <FinishScreen points={points} maxPoints={totalPossiblePoints} highscore={highscore} />}
+                {quizStatus === "finished" && <FinishScreen points={points} maxPoints={totalPossiblePoints} highscore={highscore} onDispatch={dispatch} />}
             </Main>
 
         </section>
