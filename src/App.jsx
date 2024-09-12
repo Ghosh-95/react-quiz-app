@@ -9,10 +9,12 @@ import Questions from "./components/Questions";
 import NextButton from "./components/NextButton";
 import ProgressBar from "./components/ProgressBar";
 import FinishScreen from "./components/FinishScreen";
+import Footer from "./components/Footer";
+import Timer from "./components/Timer";
 
 
 export default function App() {
-    const [{ questions, quizStatus, questionIndex, selectedAnswer, points, highscore }, dispatch] = useReducer(reducer, initialState);
+    const [{ questions, quizStatus, questionIndex, selectedAnswer, points, highscore, quizDuration }, dispatch] = useReducer(reducer, initialState);
 
     const totalPossiblePoints = questions.reduce((acc, cur) => acc + cur.points, 0);
 
@@ -45,8 +47,11 @@ export default function App() {
                     <>
                         <ProgressBar totalQuestions={questions.length} questionIndex={questionIndex} totalPoints={totalPossiblePoints} points={points} selectedAnswer={selectedAnswer} />
                         <Questions currentQuestion={questions[questionIndex]} selectedAnswer={selectedAnswer} onDispatch={dispatch} />
-                        <NextButton onDispatch={dispatch} selectedAnswer={selectedAnswer}
-                            questionIndex={questionIndex} numOfQuestions={questions.length} />
+                        <Footer>
+                            <Timer onDispatch={dispatch} quizDuration={quizDuration} />
+                            <NextButton onDispatch={dispatch} selectedAnswer={selectedAnswer}
+                                questionIndex={questionIndex} numOfQuestions={questions.length} />
+                        </Footer>
                     </>}
 
                 {quizStatus === "finished" && <FinishScreen points={points} maxPoints={totalPossiblePoints} highscore={highscore} onDispatch={dispatch} />}

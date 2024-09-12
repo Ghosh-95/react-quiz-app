@@ -1,3 +1,5 @@
+const SECS_PER_QUESTION = 20;
+
 export function reducer(state, action) {
     switch (action.type) {
         case "questionDataReceived":
@@ -14,7 +16,8 @@ export function reducer(state, action) {
         case "startQuiz":
             return {
                 ...state,
-                quizStatus: "active"
+                quizStatus: "active",
+                quizDuration: state.questions.length * SECS_PER_QUESTION,
             };
         case "selectAnswer":
             const currentQuestion = state.questions.at(state.questionIndex);
@@ -45,6 +48,13 @@ export function reducer(state, action) {
                 questionIndex: 0,
                 points: 0,
                 highscore: 0,
+                quizDuration: 10,
+            }
+        case "tick":
+            return {
+                ...state,
+                quizDuration: state.quizDuration - 1,
+                quizStatus: state.quizDuration === 0 ? "finished" : state.quizStatus,
             }
         default:
             throw new Error("unknown error occured!!")
@@ -63,4 +73,6 @@ export const initialState = {
     selectedAnswer: null,
     points: 0,
     highscore: 0,
+
+    quizDuration: 10,
 };
